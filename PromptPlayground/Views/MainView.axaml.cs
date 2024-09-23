@@ -79,9 +79,16 @@ public partial class MainView : UserControl, IRecipient<RequestFolderOpen>,
         {
             AllowMultiple = false
         });
+
+        if(folders == null || folders.Count == 0)
+        {
+            return null;
+        }
+
         var folder = folders[0]?.TryGetLocalPath();
         return folder;
     }
+
     private async Task<string?> FileOpenAsync()
     {
         var file = await TopLevel.GetTopLevel(this)!.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
